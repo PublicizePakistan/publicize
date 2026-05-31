@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Publicize — AI · Software · Digital Marketing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,700;0,900;1,700&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+[data-theme="dark"]{
+  --bg:#060810;--bg2:#090d1a;--bg3:#0e1322;--bg4:#131828;
+  --t:#e8e4f0;--t2:#7880a0;--t3:#3a4060;
+  --a:#6c63ff;--a2:#9d97ff;--ar:108,99,255;
+  --b:#2a7fff;--br:42,127,255;
+  --e:#ff6b9d;--er:255,107,157;
+  --g:#00d4a4;--gr:0,212,164;
+  --amber:#f4a535;--amberr:244,165,53;
+  --nav:rgba(6,8,16,0.94);
+  --border:rgba(255,255,255,0.06);
+  --border2:rgba(108,99,255,0.3);
+  --surface:rgba(255,255,255,0.025);
+  --card:#0e1322;--card2:#131828;
+  --tog:#181d30;
+  --strip:#6c63ff;--striptext:#e8e4f0;
+}
+[data-theme="light"]{
+  --bg:#f4f3ff;--bg2:#eceaff;--bg3:#ffffff;--bg4:#f9f8ff;
+  --t:#0d0b20;--t2:#4a4870;--t3:#9896b8;
+  --a:#5548e0;--a2:#7b73f0;--ar:85,72,224;
+  --b:#1a6fd4;--br:26,111,212;
+  --e:#d94f85;--er:217,79,133;
+  --g:#00a882;--gr:0,168,130;
+  --amber:#d4880e;--amberr:212,136,14;
+  --nav:rgba(244,243,255,0.96);
+  --border:rgba(0,0,0,0.07);
+  --border2:rgba(85,72,224,0.25);
+  --surface:rgba(0,0,0,0.02);
+  --card:#ffffff;--card2:#f9f8ff;
+  --tog:#e0defc;
+  --strip:#0d0b20;--striptext:#f4f3ff;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--t);overflow-x:hidden;transition:background .4s,color .4s;}
+body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.018;
+background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:160px;}
+
+/* ─ NAV ─ */
+nav{position:fixed;top:0;left:0;right:0;z-index:300;display:flex;align-items:center;justify-content:space-between;padding:1rem 5vw;background:var(--nav);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);transition:all .4s;}
+.logo{font-family:'Fraunces',serif;font-weight:900;font-size:1.5rem;color:var(--t);text-decoration:none;letter-spacing:-.5px;}
+.logo em{color:var(--a);font-style:italic;}
+.nav-links{display:flex;gap:2rem;list-style:none;}
+.nav-links a{font-size:.78rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--t2);text-decoration:none;transition:color .2s;}
+.nav-links a:hover{color:var(--a);}
+.nav-right{display:flex;align-items:center;gap:.85rem;}
+.tog{width:46px;height:24px;border-radius:100px;background:var(--tog);border:1px solid var(--border);cursor:pointer;position:relative;flex-shrink:0;}
+.tog-k{position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:var(--a);transition:transform .3s;display:flex;align-items:center;justify-content:center;font-size:9px;color:#fff;}
+[data-theme="light"] .tog-k{transform:translateX(22px);}
+.nav-cta{background:var(--a);color:#fff;padding:.5rem 1.25rem;border-radius:6px;font-size:.78rem;font-weight:600;letter-spacing:.04em;text-decoration:none;border:1.5px solid var(--a);transition:all .25s;}
+.nav-cta:hover{background:transparent;color:var(--a);}
+.nav-aivid{background:linear-gradient(135deg,var(--e),var(--a));color:#fff;padding:.5rem 1.25rem;border-radius:6px;font-size:.78rem;font-weight:600;letter-spacing:.04em;text-decoration:none;transition:all .25s;border:none;}
+.nav-aivid:hover{opacity:.85;}
+
+/* ─ HERO ─ */
+.hero{min-height:100vh;display:flex;align-items:center;padding:9rem 5vw 5rem;position:relative;overflow:hidden;}
+.hero-orbs{position:absolute;inset:0;z-index:0;pointer-events:none;}
+.orb{position:absolute;border-radius:50%;filter:blur(80px);animation:orbdrift 12s ease-in-out infinite;}
+.orb1{width:600px;height:600px;top:-200px;right:-100px;background:rgba(var(--ar),.12);animation-delay:0s;}
+.orb2{width:400px;height:400px;bottom:-100px;left:-100px;background:rgba(var(--gr),.08);animation-delay:-4s;}
+.orb3{width:300px;height:300px;top:50%;right:30%;background:rgba(var(--er),.06);animation-delay:-8s;}
+@keyframes orbdrift{0%,100%{transform:translate(0,0)}33%{transform:translate(30px,-20px)}66%{transform:translate(-20px,30px)}}
+.hero-dots{position:absolute;inset:0;z-index:0;background-image:radial-gradient(rgba(var(--ar),.15) 1px,transparent 1px);background-size:40px 40px;mask-image:radial-gradient(ellipse 70% 70% at 60% 40%,black 20%,transparent 80%);opacity:.4;}
+.hero-inner{position:relative;z-index:1;max-width:820px;}
+.hero-pill{display:inline-flex;align-items:center;gap:.5rem;background:rgba(var(--ar),.1);border:1px solid rgba(var(--ar),.25);color:var(--a2);font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.35rem .9rem;border-radius:100px;margin-bottom:1.75rem;}
+.hero-pill-dot{width:5px;height:5px;border-radius:50%;background:var(--g);animation:blink 2s ease-in-out infinite;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+h1{font-family:'Fraunces',serif;font-size:clamp(3.2rem,7.5vw,6.8rem);font-weight:900;line-height:.93;letter-spacing:-3px;margin-bottom:1.75rem;}
+.h1-light{color:var(--t);}
+.h1-purple{color:var(--a);}
+.h1-italic{color:var(--t);font-style:italic;}
+.h1-stroke{-webkit-text-stroke:1.5px var(--a);color:transparent;}
+.hero-desc{font-size:.97rem;font-weight:300;color:var(--t2);line-height:1.85;max-width:500px;margin-bottom:2.5rem;}
+.hero-btns{display:flex;gap:.85rem;flex-wrap:wrap;align-items:center;}
+.btn-hero{display:inline-flex;align-items:center;gap:.6rem;background:var(--a);color:#fff;padding:.9rem 2rem;border-radius:8px;font-weight:600;font-size:.85rem;text-decoration:none;border:1.5px solid var(--a);transition:all .3s;}
+.btn-hero:hover{background:transparent;color:var(--a);}
+.btn-hero-ghost{display:inline-flex;align-items:center;gap:.6rem;background:transparent;color:var(--t2);padding:.9rem 2rem;border-radius:8px;font-weight:500;font-size:.85rem;text-decoration:none;border:1.5px solid var(--border);transition:all .3s;}
+.btn-hero-ghost:hover{color:var(--t);border-color:var(--t2);}
+.btn-hero-grad{display:inline-flex;align-items:center;gap:.6rem;background:linear-gradient(135deg,var(--e),var(--a));color:#fff;padding:.9rem 2rem;border-radius:8px;font-weight:600;font-size:.85rem;text-decoration:none;transition:all .3s;border:none;}
+.btn-hero-grad:hover{opacity:.85;transform:translateY(-2px);}
+.hero-clients{margin-top:3rem;display:flex;align-items:center;gap:1.25rem;flex-wrap:wrap;}
+.hc-label{font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--t3);}
+.hc-avatars{display:flex;}
+.hc-av{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--a),var(--b));border:2px solid var(--bg);display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;color:#fff;margin-right:-8px;}
+.hc-count{font-size:.78rem;font-weight:600;color:var(--t2);margin-left:16px;}
+
+/* ─ MARQUEE ─ */
+.marquee{padding:.8rem 0;overflow:hidden;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--strip);}
+.mtrack{display:flex;gap:3rem;animation:mq 22s linear infinite;width:max-content;}
+@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.mi{font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--striptext);white-space:nowrap;display:flex;align-items:center;gap:.7rem;opacity:.8;}
+.mi::before{content:'✦';font-size:.5rem;opacity:.5;}
+
+/* ─ STATS ─ */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--border);}
+.sbox{padding:2.75rem 2.5rem;border-right:1px solid var(--border);position:relative;overflow:hidden;transition:background .3s;}
+.sbox:last-child{border-right:none;}
+.sbox:hover{background:var(--surface);}
+.sbox::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;transform:scaleX(0);transform-origin:left;transition:transform .4s;}
+.sbox:nth-child(1)::after{background:var(--a);}
+.sbox:nth-child(2)::after{background:var(--g);}
+.sbox:nth-child(3)::after{background:var(--e);}
+.sbox:nth-child(4)::after{background:var(--amber);}
+.sbox:hover::after{transform:scaleX(1);}
+.snum{font-family:'Fraunces',serif;font-size:3.5rem;font-weight:900;color:var(--t);letter-spacing:-2px;line-height:1;}
+.snum sup{font-size:1.4rem;}
+.sbox:nth-child(1) .snum sup{color:var(--a);}
+.sbox:nth-child(2) .snum sup{color:var(--g);}
+.sbox:nth-child(3) .snum sup{color:var(--e);}
+.sbox:nth-child(4) .snum sup{color:var(--amber);}
+.slabel{font-size:.7rem;font-weight:600;color:var(--t3);letter-spacing:.1em;text-transform:uppercase;margin-top:.35rem;}
+
+/* ─ SECTION ─ */
+.sec{padding:7rem 5vw;}
+.stag{display:inline-flex;align-items:center;gap:.55rem;font-size:.67rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--a);margin-bottom:1rem;}
+.stag::before{content:'';width:20px;height:2px;background:var(--a);border-radius:2px;}
+h2{font-family:'Fraunces',serif;font-size:clamp(2rem,4.5vw,3.5rem);font-weight:900;letter-spacing:-2px;line-height:1.05;margin-bottom:1.1rem;color:var(--t);}
+.ssub{font-size:.92rem;font-weight:300;color:var(--t2);line-height:1.85;max-width:500px;}
+
+/* ─ SERVICES ─ */
+.svc-header{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:end;margin-bottom:3.5rem;}
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;}
+.scard{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:2.25rem;transition:all .3s;position:relative;overflow:hidden;cursor:default;}
+.scard::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:12px 12px 0 0;transform:scaleX(0);transform-origin:left;transition:transform .4s;}
+.scard:hover{border-color:var(--border2);transform:translateY(-4px);box-shadow:0 20px 50px rgba(var(--ar),.08);}
+.scard:hover::before{transform:scaleX(1);}
+.sc1::before{background:linear-gradient(90deg,var(--a),var(--b));}
+.sc2::before{background:linear-gradient(90deg,var(--g),var(--b));}
+.sc3::before{background:linear-gradient(90deg,var(--b),var(--a));}
+.sc4::before{background:linear-gradient(90deg,var(--e),var(--a));}
+.sc5::before{background:linear-gradient(90deg,var(--amber),var(--e));}
+.sc6::before{background:linear-gradient(90deg,var(--g),var(--amber));}
+.sc-num{font-family:'Fraunces',serif;font-size:2.5rem;font-weight:900;color:var(--border);line-height:1;margin-bottom:.75rem;letter-spacing:-1px;transition:color .3s;}
+.scard:hover .sc-num{color:rgba(var(--ar),.12);}
+.sc-icon{font-size:1.5rem;margin-bottom:.7rem;}
+.sc-title{font-family:'Fraunces',serif;font-size:1.15rem;font-weight:700;color:var(--t);margin-bottom:.45rem;letter-spacing:-.3px;}
+.sc-desc{font-size:.8rem;color:var(--t2);line-height:1.7;}
+.sc-tags{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:1rem;}
+.stag2{font-size:.63rem;font-weight:600;letter-spacing:.05em;padding:.2rem .6rem;border-radius:4px;background:var(--surface);border:1px solid var(--border);color:var(--t3);text-transform:uppercase;transition:all .3s;}
+.scard:hover .stag2{border-color:rgba(var(--ar),.25);color:var(--a);}
+
+/* ─ PROJECTS ─ */
+.proj-section{background:var(--bg2);}
+.proj-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.25rem;margin-top:3.5rem;}
+.pcard{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:2.25rem;transition:all .35s;position:relative;overflow:hidden;}
+.pcard:hover{border-color:var(--border2);transform:translateY(-4px);box-shadow:0 24px 60px rgba(var(--ar),.1);}
+.pbadge{display:inline-flex;align-items:center;gap:.4rem;font-size:.63rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.22rem .7rem;border-radius:100px;margin-bottom:1.1rem;}
+.pb-live{background:rgba(var(--gr),.1);color:var(--g);border:1px solid rgba(var(--gr),.25);}
+.pb-ai{background:rgba(var(--ar),.1);color:var(--a2);border:1px solid rgba(var(--ar),.25);}
+.pb-live::before{content:'●';font-size:.5rem;animation:blink 1.5s infinite;}
+.pc-title{font-family:'Fraunces',serif;font-size:1.4rem;font-weight:700;color:var(--t);letter-spacing:-.5px;margin-bottom:.5rem;}
+.pc-client{font-size:.72rem;font-weight:600;color:var(--a);letter-spacing:.06em;text-transform:uppercase;margin-bottom:.75rem;display:flex;align-items:center;gap:.4rem;}
+.pc-client a{color:var(--a);text-decoration:none;}
+.pc-client a:hover{text-decoration:underline;}
+.pc-desc{font-size:.8rem;color:var(--t2);line-height:1.72;margin-bottom:1.1rem;}
+.pc-tech{display:flex;flex-wrap:wrap;gap:.35rem;}
+.ptag{font-size:.63rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;padding:.2rem .6rem;border-radius:4px;background:var(--surface);border:1px solid var(--border);color:var(--t3);}
+
+/* ─ AI PRODUCTS ─ */
+.aip-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:3.5rem;}
+.aicard{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:2.25rem 2rem;transition:all .3s;position:relative;overflow:hidden;}
+.aicard::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(var(--ar),.04) 0%,transparent 60%);opacity:0;transition:opacity .35s;}
+.aicard:hover{border-color:rgba(var(--ar),.3);transform:translateY(-3px);}
+.aicard:hover::after{opacity:1;}
+.ai-icon-wrap{width:46px;height:46px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.25rem;margin-bottom:1.1rem;border:1px solid var(--border);transition:border-color .3s;}
+.aicard:hover .ai-icon-wrap{border-color:rgba(var(--ar),.4);}
+.ai-title{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:700;color:var(--t);letter-spacing:-.3px;margin-bottom:.45rem;}
+.ai-desc{font-size:.78rem;color:var(--t2);line-height:1.7;}
+.ai-badge{display:inline-block;margin-top:.85rem;font-size:.62rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--a);border-bottom:1.5px solid rgba(var(--ar),.3);padding-bottom:.12rem;}
+.ai-vid-card{background:linear-gradient(135deg,rgba(var(--er),.08),rgba(var(--ar),.08));border:1px solid rgba(var(--er),.2) !important;}
+.ai-vid-card:hover{border-color:rgba(var(--er),.4) !important;}
+.ai-vid-card .ai-icon-wrap{border-color:rgba(var(--er),.3);}
+.ai-vid-card:hover .ai-icon-wrap{border-color:rgba(var(--er),.6);}
+.ai-vid-card .ai-title{background:linear-gradient(135deg,var(--e),var(--a));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.ai-vid-card .ai-badge{color:var(--e);border-color:rgba(var(--er),.4);}
+.ai-vid-link{display:inline-flex;align-items:center;gap:.4rem;margin-top:.85rem;font-size:.72rem;font-weight:600;color:#fff;background:linear-gradient(135deg,var(--e),var(--a));padding:.4rem .9rem;border-radius:100px;text-decoration:none;transition:opacity .25s;}
+.ai-vid-link:hover{opacity:.85;}
+
+/* ─ OFFICES ─ */
+.offices-section{background:var(--bg2);}
+.offices-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem;margin-top:3.5rem;}
+.ocard{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:2.25rem 2rem;transition:all .3s;position:relative;}
+.ocard:hover{border-color:var(--border2);transform:translateY(-4px);box-shadow:0 20px 50px rgba(var(--ar),.08);}
+.ocard::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:12px 12px 0 0;transform:scaleX(0);transform-origin:left;transition:transform .4s;}
+.oc1::before{background:linear-gradient(90deg,#0052cc,#0099ff);}
+.oc2::before{background:linear-gradient(90deg,#002395,#ED2939);}
+.oc3::before{background:linear-gradient(90deg,#00732f,#ffffff,#ff0000);}
+.oc4::before{background:linear-gradient(90deg,#01411c,#ffffff);}
+.ocard:hover::before{transform:scaleX(1);}
+.oflag{font-size:2.5rem;margin-bottom:1rem;}
+.ocity{font-family:'Fraunces',serif;font-size:1.35rem;font-weight:700;color:var(--t);letter-spacing:-.5px;margin-bottom:.15rem;}
+.ocountry{font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--a);margin-bottom:.75rem;}
+.oaddr{font-size:.78rem;color:var(--t2);line-height:1.6;}
+.ohq{display:inline-block;font-size:.6rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.2rem .65rem;background:rgba(var(--ar),.1);color:var(--a2);border-radius:4px;margin-top:.75rem;}
+
+/* ─ TIMELINE ─ */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:start;}
+.tl{display:flex;flex-direction:column;}
+.tli{display:grid;grid-template-columns:56px 2px 1fr;gap:0 1.25rem;align-items:stretch;}
+.tly{font-family:'Fraunces',serif;font-size:.9rem;font-weight:700;color:var(--a);text-align:right;padding-top:.05rem;}
+.tlln{background:var(--border);position:relative;}
+.tlln::before{content:'';position:absolute;top:.3rem;left:50%;transform:translateX(-50%);width:8px;height:8px;border-radius:50%;background:var(--a);border:2px solid var(--bg);}
+.tlb{padding:0 0 2rem;}
+.tlt{font-size:.85rem;font-weight:600;color:var(--t);margin-bottom:.2rem;}
+.tld{font-size:.76rem;color:var(--t3);line-height:1.55;}
+.tli:last-child .tlb{padding-bottom:0;}
+.pillars{display:flex;flex-direction:column;gap:1rem;margin-top:2.25rem;}
+.pillar{display:flex;gap:1rem;padding:1.35rem;background:var(--card);border:1px solid var(--border);border-radius:10px;transition:all .3s;}
+.pillar:hover{border-color:var(--border2);transform:translateX(4px);}
+.p-ico{width:40px;height:40px;border-radius:8px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0;transition:border-color .3s;}
+.pillar:hover .p-ico{border-color:var(--a);}
+.p-t{font-size:.85rem;font-weight:600;color:var(--t);margin-bottom:.18rem;}
+.p-d{font-size:.76rem;color:var(--t2);line-height:1.6;}
+
+/* ─ PROCESS ─ */
+.proc-section{background:var(--bg2);}
+.proc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-top:3.5rem;}
+.pstep{padding:2.5rem 2rem;border-right:1px solid var(--border);position:relative;transition:background .3s;}
+.pstep:last-child{border-right:none;}
+.pstep:hover{background:var(--surface);}
+.psn{font-family:'Fraunces',serif;font-size:4rem;font-weight:900;color:var(--border);position:absolute;top:.5rem;right:1.25rem;line-height:1;letter-spacing:-2px;transition:color .3s;}
+.pstep:hover .psn{color:rgba(var(--ar),.1);}
+.ps-icon{font-size:1.5rem;margin-bottom:1.1rem;}
+.ps-title{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:700;color:var(--t);letter-spacing:-.3px;margin-bottom:.5rem;}
+.ps-desc{font-size:.78rem;color:var(--t2);line-height:1.7;}
+
+/* ─ TECH ─ */
+.tech-layout{display:grid;grid-template-columns:1fr 1.5fr;gap:4.5rem;align-items:start;margin-top:3.5rem;}
+.tcat{margin-bottom:1.75rem;}
+.tc-title{font-size:.67rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--a);margin-bottom:.8rem;display:flex;align-items:center;gap:.5rem;}
+.tc-title::after{content:'';flex:1;height:1px;background:var(--border);}
+.tpills{display:flex;flex-wrap:wrap;gap:.4rem;}
+.tpill{font-size:.74rem;font-weight:500;padding:.38rem .85rem;border-radius:6px;background:var(--card);border:1px solid var(--border);color:var(--t2);transition:all .25s;cursor:default;}
+.tpill:hover{color:var(--a);border-color:rgba(var(--ar),.3);background:rgba(var(--ar),.04);}
+.tech-panel{background:var(--card);border:1px solid var(--border);padding:2.5rem;border-radius:12px;position:sticky;top:5.5rem;}
+.tp-title{font-family:'Fraunces',serif;font-size:1.5rem;font-weight:900;letter-spacing:-1px;margin-bottom:1.5rem;}
+.exp-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.ebox{text-align:center;padding:1.25rem;border:1px solid var(--border);border-radius:8px;}
+.en{font-family:'Fraunces',serif;font-size:2.8rem;font-weight:900;color:var(--a);letter-spacing:-2px;line-height:1;}
+.el{font-size:.65rem;font-weight:600;color:var(--t3);letter-spacing:.08em;text-transform:uppercase;margin-top:.25rem;}
+
+/* ─ CTA ─ */
+.cta-sec{position:relative;overflow:hidden;padding:9rem 5vw;text-align:center;}
+[data-theme="dark"] .cta-sec{background:linear-gradient(135deg,#060810 0%,#0a0818 50%,#060810 100%);}
+[data-theme="light"] .cta-sec{background:linear-gradient(135deg,#f4f3ff 0%,#eceaff 50%,#f4f3ff 100%);}
+.cta-orbs{position:absolute;inset:0;pointer-events:none;}
+.corb1{position:absolute;width:600px;height:600px;border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%);background:radial-gradient(ellipse,rgba(var(--ar),.1) 0%,transparent 70%);filter:blur(40px);}
+.corb2{position:absolute;width:300px;height:300px;border-radius:50%;bottom:-50px;right:10%;background:radial-gradient(ellipse,rgba(var(--er),.08) 0%,transparent 70%);filter:blur(30px);}
+.cta-sec .stag{justify-content:center;}
+.cta-sec h2{position:relative;z-index:1;max-width:750px;margin:0 auto 1.1rem;}
+.cta-sec p{position:relative;z-index:1;font-size:.92rem;font-weight:300;color:var(--t2);line-height:1.85;max-width:460px;margin:0 auto 2.5rem;}
+.cta-btns{display:flex;gap:.85rem;justify-content:center;flex-wrap:wrap;position:relative;z-index:1;}
+
+/* ─ CONTACT ─ */
+.cont-section{background:var(--bg2);}
+.cont-layout{display:grid;grid-template-columns:1fr 1.5fr;gap:5rem;margin-top:3.5rem;align-items:start;}
+.ci h3{font-family:'Fraunces',serif;font-size:1.6rem;font-weight:700;letter-spacing:-1px;margin-bottom:.8rem;}
+.ci p{font-size:.82rem;color:var(--t2);line-height:1.85;margin-bottom:2rem;}
+.cdet{display:flex;align-items:center;gap:.85rem;padding:.85rem 1.1rem;background:var(--card);border:1px solid var(--border);border-radius:8px;margin-bottom:.6rem;transition:all .3s;}
+.cdet:hover{border-color:var(--border2);transform:translateX(4px);}
+.cdet-ico{width:34px;height:34px;border:1px solid var(--border);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:.85rem;flex-shrink:0;transition:border-color .3s;}
+.cdet:hover .cdet-ico{border-color:var(--a);}
+.cdl{font-size:.63rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--t3);margin-bottom:.1rem;}
+.cdv{font-size:.82rem;font-weight:500;color:var(--t);}
+.cform{background:var(--card);border:1px solid var(--border);padding:2.5rem;border-radius:12px;}
+.cf-title{font-family:'Fraunces',serif;font-size:1.4rem;font-weight:700;letter-spacing:-.5px;margin-bottom:1.5rem;}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:.85rem;margin-bottom:.85rem;}
+.fg{margin-bottom:.85rem;}
+.fg label{display:block;font-size:.64rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--t3);margin-bottom:.4rem;}
+.fg input,.fg textarea,.fg select{width:100%;padding:.78rem .95rem;border:1px solid var(--border);border-radius:7px;font-family:'Plus Jakarta Sans',sans-serif;font-size:.83rem;color:var(--t);background:var(--bg);transition:border-color .2s,box-shadow .2s;outline:none;appearance:none;}
+.fg input:focus,.fg textarea:focus,.fg select:focus{border-color:var(--a);box-shadow:0 0 0 3px rgba(var(--ar),.08);}
+.fg textarea{resize:vertical;min-height:110px;}
+.fsub{width:100%;padding:.95rem;background:var(--a);color:#fff;border:1.5px solid var(--a);border-radius:8px;font-family:'Plus Jakarta Sans',sans-serif;font-size:.82rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;transition:all .3s;}
+.fsub:hover{background:transparent;color:var(--a);}
+
+/* ─ FOOTER ─ */
+footer{background:var(--bg);border-top:1px solid var(--border);padding:4rem 5vw 2rem;}
+.ftop{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:3rem;padding-bottom:3rem;border-bottom:1px solid var(--border);}
+.fb .logo{display:block;margin-bottom:.85rem;}
+.fb p{font-size:.78rem;color:var(--t3);line-height:1.75;max-width:220px;}
+.fc h4{font-size:.65rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--a);margin-bottom:1rem;}
+.fc ul{list-style:none;display:flex;flex-direction:column;gap:.5rem;}
+.fc a{font-size:.78rem;color:var(--t3);text-decoration:none;transition:color .2s;}
+.fc a:hover{color:var(--t);}
+.fbot{display:flex;align-items:center;justify-content:space-between;padding-top:1.5rem;flex-wrap:wrap;gap:1rem;}
+.fbot p{font-size:.72rem;color:var(--t3);}
+.fbl{display:flex;gap:1.25rem;}
+.fbl a{font-size:.72rem;color:var(--t3);text-decoration:none;transition:color .2s;}
+.fbl a:hover{color:var(--a);}
+
+/* ─ REVEAL ─ */
+.rv{opacity:0;transform:translateY(20px);transition:opacity .65s ease,transform .65s ease;}
+.rv.vis{opacity:1;transform:translateY(0);}
+.rv.d1{transition-delay:.1s;}.rv.d2{transition-delay:.2s;}.rv.d3{transition-delay:.3s;}
+
+/* ─ RESPONSIVE ─ */
+@media(max-width:1024px){
+  .svc-header,.about-grid,.tech-layout,.cont-layout{grid-template-columns:1fr;}
+  .tech-panel{position:static;}
+  .offices-grid,.aip-grid{grid-template-columns:1fr 1fr;}
+  .ftop{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:768px){
+  .stats-row{grid-template-columns:1fr 1fr;}
+  .sbox:nth-child(2){border-right:none;}
+  .sbox:nth-child(3){border-top:1px solid var(--border);border-right:1px solid var(--border);}
+  .sbox:nth-child(4){border-top:1px solid var(--border);}
+  .svc-grid,.aip-grid,.offices-grid,.proj-grid{grid-template-columns:1fr;}
+  .proc-grid{grid-template-columns:1fr 1fr;}
+  .pstep:nth-child(2){border-right:none;}
+  .pstep:nth-child(3){border-top:1px solid var(--border);}
+  .nav-links{display:none;}
+  .frow{grid-template-columns:1fr;}
+  .ftop{grid-template-columns:1fr;}
+  h1{letter-spacing:-2px;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">Pub<em>licize</em></a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#offices">Offices</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="tog" id="togBtn"><div class="tog-k" id="togK">☀</div></button>
+    <a href="ai-video.html" class="nav-aivid">🎬 AI Video Ads</a>
+    <a href="#contact" class="nav-cta">Get Started</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-orbs"><div class="orb orb1"></div><div class="orb orb2"></div><div class="orb orb3"></div></div>
+  <div class="hero-dots"></div>
+  <div class="hero-inner">
+    <div class="hero-pill"><div class="hero-pill-dot"></div>Est. 2018 · 4 Global Offices · AI-Driven Agency</div>
+    <h1>
+      <div class="h1-light">We Craft</div>
+      <div class="h1-purple">Intelligent</div>
+      <div class="h1-italic">Digital</div>
+      <div class="h1-stroke">Solutions.</div>
+    </h1>
+    <p class="hero-desc">A global technology agency specializing in AI, automation, software, Shopify development and digital marketing — from New York to Dubai, Paris to Islamabad.</p>
+    <div class="hero-btns">
+      <a href="#services" class="btn-hero">Explore Services →</a>
+      <a href="ai-video.html" class="btn-hero-grad">🎬 AI Video Ads</a>
+      <a href="#contact" class="btn-hero-ghost">Talk to Us</a>
+    </div>
+    <div class="hero-clients">
+      <span class="hc-label">Trusted by</span>
+      <div class="hc-avatars">
+        <div class="hc-av">O</div><div class="hc-av">E</div><div class="hc-av">L</div><div class="hc-av">A</div>
+      </div>
+      <span class="hc-count">150+ global clients</span>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee">
+  <div class="mtrack">
+    <span class="mi">Artificial Intelligence</span><span class="mi">AI Automation</span><span class="mi">Software Development</span><span class="mi">Web Development</span><span class="mi">App Development</span><span class="mi">Shopify Development</span><span class="mi">Digital Marketing</span><span class="mi">Text to Speech AI</span><span class="mi">AI Video Generation</span><span class="mi">Meeting Summaries</span><span class="mi">AI Agents</span><span class="mi">Organicles App</span>
+    <span class="mi">Artificial Intelligence</span><span class="mi">AI Automation</span><span class="mi">Software Development</span><span class="mi">Web Development</span><span class="mi">App Development</span><span class="mi">Shopify Development</span><span class="mi">Digital Marketing</span><span class="mi">Text to Speech AI</span><span class="mi">AI Video Generation</span><span class="mi">Meeting Summaries</span><span class="mi">AI Agents</span><span class="mi">Organicles App</span>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats-row rv">
+  <div class="sbox"><div class="snum">7<sup>+</sup></div><div class="slabel">Years Active</div></div>
+  <div class="sbox"><div class="snum">4</div><div class="slabel">Global Offices</div></div>
+  <div class="sbox"><div class="snum">150<sup>+</sup></div><div class="slabel">Happy Clients</div></div>
+  <div class="sbox"><div class="snum">3<sup>×</sup></div><div class="slabel">Average ROI</div></div>
+</div>
+
+<!-- SERVICES -->
+<section class="sec" id="services">
+  <div class="svc-header rv">
+    <div><div class="stag">What We Do</div><h2>Our Core Services</h2></div>
+    <p class="ssub">AI-first technology across software, web, mobile, Shopify and marketing — built for ambitious businesses ready to scale.</p>
+  </div>
+  <div class="svc-grid rv d1">
+    <div class="scard sc1">
+      <div class="sc-num">01</div><div class="sc-icon">🤖</div>
+      <div class="sc-title">Artificial Intelligence</div>
+      <div class="sc-desc">Custom AI models, LLM integrations, intelligent pipelines and machine learning systems tailored to your business goals.</div>
+      <div class="sc-tags"><span class="stag2">LLMs</span><span class="stag2">NLP</span><span class="stag2">Vision</span><span class="stag2">RAG</span></div>
+    </div>
+    <div class="scard sc2">
+      <div class="sc-num">02</div><div class="sc-icon">⚡</div>
+      <div class="sc-title">AI Automation</div>
+      <div class="sc-desc">End-to-end automation with AI agents, voice AI (text-to-speech, speech-to-text), meeting summaries and intelligent customer service workflows.</div>
+      <div class="sc-tags"><span class="stag2">AI Agents</span><span class="stag2">Voice AI</span><span class="stag2">Workflows</span></div>
+    </div>
+    <div class="scard sc3">
+      <div class="sc-num">03</div><div class="sc-icon">💻</div>
+      <div class="sc-title">Software Development</div>
+      <div class="sc-desc">Scalable web and enterprise applications from MVP to production-grade platforms — clean architecture, modern stack, reliable performance.</div>
+      <div class="sc-tags"><span class="stag2">React</span><span class="stag2">Node.js</span><span class="stag2">Python</span><span class="stag2">Cloud</span></div>
+    </div>
+    <div class="scard sc4">
+      <div class="sc-num">04</div><div class="sc-icon">📱</div>
+      <div class="sc-title">Web & App Development</div>
+      <div class="sc-desc">High-performance websites and cross-platform mobile apps for iOS & Android with beautiful UI and solid infrastructure.</div>
+      <div class="sc-tags"><span class="stag2">Next.js</span><span class="stag2">Flutter</span><span class="stag2">React Native</span></div>
+    </div>
+    <div class="scard sc5">
+      <div class="sc-num">05</div><div class="sc-icon">🛒</div>
+      <div class="sc-title">Shopify Development</div>
+      <div class="sc-desc">Custom Shopify stores, theme development, app integrations and conversion-optimized e-commerce experiences that drive real sales growth.</div>
+      <div class="sc-tags"><span class="stag2">Shopify</span><span class="stag2">Liquid</span><span class="stag2">Shopify Plus</span></div>
+    </div>
+    <div class="scard sc6">
+      <div class="sc-num">06</div><div class="sc-icon">📣</div>
+      <div class="sc-title">Marketing & Digital Marketing</div>
+      <div class="sc-desc">SEO, paid media, social media and brand strategy built on data — campaigns that attract the right audience and convert consistently.</div>
+      <div class="sc-tags"><span class="stag2">SEO</span><span class="stag2">PPC</span><span class="stag2">Social</span><span class="stag2">Content</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="sec proj-section" id="projects">
+  <div class="rv"><div class="stag">Active Work</div><h2>Projects We're Building</h2><p class="ssub">A live snapshot of projects our teams are actively developing across our global offices right now.</p></div>
+  <div class="proj-grid rv d1">
+    <div class="pcard">
+      <div class="pbadge pb-live">Live Project</div>
+      <div class="pc-title">Organicles Mobile App</div>
+      <div class="pc-client">📱 Client: <a href="https://organicles.pk" target="_blank">organicles.pk</a> — Pakistan's #1 Organic Store</div>
+      <div class="pc-desc">Building a full-featured mobile app for Organicles — Pakistan's leading organic products brand. The app features product browsing, order management, loyalty rewards, health tracking and AI-powered wellness recommendations for their thousands of customers across Pakistan.</div>
+      <div class="pc-tech"><span class="ptag">Flutter</span><span class="ptag">React Native</span><span class="ptag">Shopify API</span><span class="ptag">AI</span><span class="ptag">Mobile</span></div>
+    </div>
+    <div class="pcard">
+      <div class="pbadge pb-live">Live Project</div>
+      <div class="pc-title">Leading Foundation Marketing</div>
+      <div class="pc-client">📣 Digital Marketing & Strategy</div>
+      <div class="pc-desc">A comprehensive digital marketing platform and strategy system built for foundation-level organizations — combining data analytics, campaign automation, donor engagement tools and performance reporting dashboards.</div>
+      <div class="pc-tech"><span class="ptag">Digital Marketing</span><span class="ptag">Analytics</span><span class="ptag">CRM</span><span class="ptag">Automation</span></div>
+    </div>
+    <div class="pcard">
+      <div class="pbadge pb-live">Live Project</div>
+      <div class="pc-title">E-Legal Diary</div>
+      <div class="pc-client">⚖️ Legal Technology Platform</div>
+      <div class="pc-desc">A legal case management platform digitizing workflows for legal professionals — smart document management, court date tracking, client communication tools and AI-assisted legal research to modernize legal practice in Pakistan.</div>
+      <div class="pc-tech"><span class="ptag">Software Dev</span><span class="ptag">AI</span><span class="ptag">Legal Tech</span><span class="ptag">Web App</span></div>
+    </div>
+    <div class="pcard">
+      <div class="pbadge pb-ai">🤖 AI Project</div>
+      <div class="pc-title">AI Smart Analytics Dashboard</div>
+      <div class="pc-client">📊 Business Intelligence · AI</div>
+      <div class="pc-desc">An intelligent business analytics dashboard powered by machine learning — real-time KPI monitoring, predictive trend analysis, automated insight generation and a natural language query interface for non-technical users.</div>
+      <div class="pc-tech"><span class="ptag">Machine Learning</span><span class="ptag">Python</span><span class="ptag">BI</span><span class="ptag">NLP</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- AI PRODUCTS -->
+<section class="sec" id="ai-lab">
+  <div class="rv"><div class="stag">AI Innovation</div><h2>AI Products We're Creating</h2><p class="ssub">Our internal AI lab builds next-generation products — pushing boundaries of what's possible with artificial intelligence.</p></div>
+  <div class="aip-grid rv d1">
+    <div class="aicard">
+      <div class="ai-icon-wrap">🎙</div>
+      <div class="ai-title">Text-to-Speech & Speech-to-Text</div>
+      <div class="ai-desc">Advanced voice AI improving customer service — real-time transcription, multilingual support and natural conversational experiences for businesses at scale.</div>
+      <div class="ai-badge">Customer Service · Voice AI</div>
+    </div>
+    <div class="aicard">
+      <div class="ai-icon-wrap">📝</div>
+      <div class="ai-title">AI Meeting Summaries</div>
+      <div class="ai-desc">Intelligent meeting transcription and summarization — automatically captures decisions, action items and follow-ups from any meeting in seconds.</div>
+      <div class="ai-badge">Productivity · NLP</div>
+    </div>
+    <div class="aicard">
+      <div class="ai-icon-wrap">🤖</div>
+      <div class="ai-title">AI Agents Platform</div>
+      <div class="ai-desc">Autonomous AI agents handling complex multi-step tasks — customer support, data processing, research automation and intelligent business workflows.</div>
+      <div class="ai-badge">Automation · Agents</div>
+    </div>
+    <div class="aicard ai-vid-card">
+      <div class="ai-icon-wrap">🎬</div>
+      <div class="ai-title">AI Video Generation for Ads</div>
+      <div class="ai-desc">Cutting-edge AI video generation platform for advertising — create high-converting video ads at scale without traditional production costs or timelines.</div>
+      <a href="ai-video.html" class="ai-vid-link">Explore AI Video Ads →</a>
+    </div>
+    <div class="aicard">
+      <div class="ai-icon-wrap">📊</div>
+      <div class="ai-title">Smart Analytics Dashboard</div>
+      <div class="ai-desc">AI-powered BI that speaks plain English — ask questions in natural language and get instant visual insights, forecasts and recommendations.</div>
+      <div class="ai-badge">Analytics · ML</div>
+    </div>
+    <div class="aicard">
+      <div class="ai-icon-wrap">🛍</div>
+      <div class="ai-title">E-commerce AI Suite</div>
+      <div class="ai-desc">AI tools for Shopify and e-commerce — personalized recommendations, dynamic pricing, inventory forecasting and AI-driven customer retention.</div>
+      <div class="ai-badge">Shopify · E-commerce AI</div>
+    </div>
+  </div>
+</section>
+
+<!-- OFFICES -->
+<section class="sec offices-section" id="offices">
+  <div class="rv"><div class="stag">Global Presence</div><h2>Our Offices</h2><p class="ssub">Four strategically located offices giving us round-the-clock coverage across North America, Europe, the Middle East and South Asia.</p></div>
+  <div class="offices-grid rv d1">
+    <div class="ocard oc1">
+      <div class="oflag">🇺🇸</div>
+      <div class="ocity">New York</div>
+      <div class="ocountry">United States of America</div>
+      <div class="oaddr">Manhattan, New York<br>NY, USA</div>
+      <div class="ohq">Americas Office</div>
+    </div>
+    <div class="ocard oc2">
+      <div class="oflag">🇫🇷</div>
+      <div class="ocity">Paris</div>
+      <div class="ocountry">France · Europe</div>
+      <div class="oaddr">Île-de-France<br>Paris, France</div>
+      <div class="ohq">Europe Office</div>
+    </div>
+    <div class="ocard oc3">
+      <div class="oflag">🇦🇪</div>
+      <div class="ocity">Dubai</div>
+      <div class="ocountry">United Arab Emirates</div>
+      <div class="oaddr">Business Bay<br>Dubai, UAE</div>
+      <div class="ohq">MENA Office</div>
+    </div>
+    <div class="ocard oc4">
+      <div class="oflag">🇵🇰</div>
+      <div class="ocity">Islamabad</div>
+      <div class="ocountry">Pakistan</div>
+      <div class="oaddr">F11/3, Islamabad<br>Pakistan</div>
+      <div class="ohq">South Asia Office</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="sec" id="about">
+  <div class="about-grid">
+    <div class="rv">
+      <div class="stag">Our Story</div>
+      <h2>Built Since 2018</h2>
+      <p class="ssub" style="margin-bottom:2.25rem;">From a focused startup in 2018 to a global agency with offices on four continents — Publicize has grown by staying relentlessly at the frontier of technology.</p>
+      <div class="tl">
+        <div class="tli"><div class="tly">2018</div><div class="tlln"></div><div class="tlb"><div class="tlt">Founded</div><div class="tld">Launched with a focus on software development and digital marketing.</div></div></div>
+        <div class="tli"><div class="tly">2019</div><div class="tlln"></div><div class="tlb"><div class="tlt">Shopify & E-commerce</div><div class="tld">Expanded into Shopify and e-commerce solutions for global clients.</div></div></div>
+        <div class="tli"><div class="tly">2021</div><div class="tlln"></div><div class="tlb"><div class="tlt">AI Division Launched</div><div class="tld">Invested heavily in AI and machine learning capabilities.</div></div></div>
+        <div class="tli"><div class="tly">2022</div><div class="tlln"></div><div class="tlb"><div class="tlt">Global Expansion</div><div class="tld">Opened offices in New York, Dubai and Paris.</div></div></div>
+        <div class="tli"><div class="tly">2024</div><div class="tlln"></div><div class="tlb"><div class="tlt">AI Automation & Video AI</div><div class="tld">Launched voice AI, meeting summaries, agents and AI video generation for ads.</div></div></div>
+        <div class="tli"><div class="tly">2025</div><div class="tlln"></div><div class="tlb"><div class="tlt">AI-First Global Agency</div><div class="tld">150+ clients across 4 continents with a growing suite of proprietary AI products.</div></div></div>
+      </div>
+    </div>
+    <div class="rv d2">
+      <div class="stag">Why Choose Us</div>
+      <h2>What Sets Us Apart</h2>
+      <div class="pillars">
+        <div class="pillar"><div class="p-ico">🌍</div><div><div class="p-t">Truly Global</div><div class="p-d">4 offices across USA, Europe, Middle East & Pakistan — local expertise with global capacity and 24/7 coverage.</div></div></div>
+        <div class="pillar"><div class="p-ico">🤖</div><div><div class="p-t">AI-First Mindset</div><div class="p-d">Every solution designed with intelligence and automation at its core — not bolted on as an afterthought.</div></div></div>
+        <div class="pillar"><div class="p-ico">🚀</div><div><div class="p-t">Full-Stack Capability</div><div class="p-d">AI, software, Shopify, mobile and marketing — all under one roof for seamless execution.</div></div></div>
+        <div class="pillar"><div class="p-ico">📈</div><div><div class="p-t">Results-Focused</div><div class="p-d">Every decision is made with your business growth as the goal — we measure success by your outcomes.</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="sec proc-section">
+  <div style="text-align:center;" class="rv">
+    <div class="stag" style="justify-content:center;">How We Work</div>
+    <h2>Our Process</h2>
+    <p class="ssub" style="margin:0 auto;">A proven methodology refined across 7 years and 150+ global projects.</p>
+  </div>
+  <div class="proc-grid rv d1">
+    <div class="pstep"><div class="psn">01</div><div class="ps-icon">🔍</div><div class="ps-title">Discover</div><div class="ps-desc">We immerse in your business, goals and audience before writing a single line of code or placing an ad.</div></div>
+    <div class="pstep"><div class="psn">02</div><div class="ps-icon">🗺</div><div class="ps-title">Strategize</div><div class="ps-desc">Tech stack, architecture and campaign plans — a complete roadmap for your budget and timeline.</div></div>
+    <div class="pstep"><div class="psn">03</div><div class="ps-icon">⚡</div><div class="ps-title">Execute</div><div class="ps-desc">Agile sprints with clear milestones. Visible progress every week with full transparency.</div></div>
+    <div class="pstep"><div class="psn">04</div><div class="ps-icon">🚀</div><div class="ps-title">Launch & Scale</div><div class="ps-desc">We deploy, optimize and stay invested in your growth long after go-live.</div></div>
+  </div>
+</section>
+
+<!-- TECH -->
+<section class="sec" id="tech">
+  <div class="rv"><div class="stag">Tech Stack</div><h2>Technologies We Work With</h2></div>
+  <div class="tech-layout">
+    <div class="rv">
+      <div class="tcat"><div class="tc-title">Artificial Intelligence</div><div class="tpills"><span class="tpill">Python</span><span class="tpill">TensorFlow</span><span class="tpill">PyTorch</span><span class="tpill">LangChain</span><span class="tpill">OpenAI</span><span class="tpill">Hugging Face</span><span class="tpill">Whisper</span></div></div>
+      <div class="tcat"><div class="tc-title">Web & Software</div><div class="tpills"><span class="tpill">React.js</span><span class="tpill">Next.js</span><span class="tpill">Node.js</span><span class="tpill">Django</span><span class="tpill">FastAPI</span><span class="tpill">TypeScript</span><span class="tpill">GraphQL</span></div></div>
+      <div class="tcat"><div class="tc-title">Mobile & Shopify</div><div class="tpills"><span class="tpill">Flutter</span><span class="tpill">React Native</span><span class="tpill">Shopify Liquid</span><span class="tpill">Shopify Plus</span><span class="tpill">Swift</span><span class="tpill">Kotlin</span></div></div>
+      <div class="tcat"><div class="tc-title">Cloud & Infrastructure</div><div class="tpills"><span class="tpill">AWS</span><span class="tpill">Google Cloud</span><span class="tpill">Docker</span><span class="tpill">Kubernetes</span><span class="tpill">PostgreSQL</span><span class="tpill">MongoDB</span></div></div>
+      <div class="tcat"><div class="tc-title">Marketing</div><div class="tpills"><span class="tpill">Google Ads</span><span class="tpill">Meta Ads</span><span class="tpill">HubSpot</span><span class="tpill">SEMrush</span><span class="tpill">Ahrefs</span><span class="tpill">GA4</span></div></div>
+    </div>
+    <div class="tech-panel rv d2">
+      <div class="tp-title">By the Numbers</div>
+      <div class="exp-grid">
+        <div class="ebox"><div class="en">7+</div><div class="el">Years Active</div></div>
+        <div class="ebox"><div class="en">150+</div><div class="el">Projects</div></div>
+        <div class="ebox"><div class="en">4</div><div class="el">Global Offices</div></div>
+        <div class="ebox"><div class="en">98%</div><div class="el">Retention</div></div>
+      </div>
+      <div style="margin-top:1.75rem;padding-top:1.75rem;border-top:1px solid var(--border);">
+        <p style="font-size:.8rem;color:var(--t2);line-height:1.8;margin-bottom:1.5rem;">From AI automation to conversion-optimized Shopify stores — we have the full stack to take your idea from concept to global scale.</p>
+        <a href="#contact" class="btn-hero">Start a Project →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-sec">
+  <div class="cta-orbs"><div class="corb1"></div><div class="corb2"></div></div>
+  <div class="stag rv">Since 2018</div>
+  <h2 class="rv">Ready to Build Something<br><span style="color:var(--a)">Extraordinary?</span></h2>
+  <p class="rv">Join 150+ businesses across 4 continents that trust Publicize to deliver world-class AI, software and marketing solutions.</p>
+  <div class="cta-btns rv">
+    <a href="#contact" class="btn-hero">Start Your Project →</a>
+    <a href="ai-video.html" class="btn-hero-grad">🎬 AI Video Ads</a>
+    <a href="mailto:publicize16@gmail.com" class="btn-hero-ghost">✉ publicize16@gmail.com</a>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="sec cont-section" id="contact">
+  <div class="rv"><div class="stag">Get In Touch</div><h2>Let's Talk</h2></div>
+  <div class="cont-layout">
+    <div class="ci rv">
+      <h3>We'd love to hear from you</h3>
+      <p>Have a project in mind or just an idea? Our global team responds within 24 hours — no matter which timezone you're in.</p>
+      <div class="cdet"><div class="cdet-ico">✉</div><div><div class="cdl">Email</div><div class="cdv">publicize16@gmail.com</div></div></div>
+      <div class="cdet"><div class="cdet-ico">🇺🇸</div><div><div class="cdl">Americas</div><div class="cdv">New York, USA</div></div></div>
+      <div class="cdet"><div class="cdet-ico">🇫🇷</div><div><div class="cdl">Europe</div><div class="cdv">Paris, France</div></div></div>
+      <div class="cdet"><div class="cdet-ico">🇦🇪</div><div><div class="cdl">MENA</div><div class="cdv">Dubai, UAE</div></div></div>
+      <div class="cdet"><div class="cdet-ico">🇵🇰</div><div><div class="cdl">South Asia</div><div class="cdv">F11/3, Islamabad, Pakistan</div></div></div>
+    </div>
+    <div class="cform rv d2">
+      <div class="cf-title">Send Us a Message</div>
+      <div class="frow">
+        <div class="fg"><label>Full Name</label><input type="text" placeholder="Your name"></div>
+        <div class="fg"><label>Email</label><input type="email" placeholder="you@company.com"></div>
+      </div>
+      <div class="frow">
+        <div class="fg"><label>Company</label><input type="text" placeholder="Company name"></div>
+        <div class="fg"><label>Service</label>
+          <select>
+            <option value="">Select a service…</option>
+            <option>Artificial Intelligence</option>
+            <option>AI Automation</option>
+            <option>Software Development</option>
+            <option>Web & App Development</option>
+            <option>Shopify Development</option>
+            <option>Digital Marketing</option>
+            <option>AI Video Generation</option>
+            <option>Full Package</option>
+          </select>
+        </div>
+      </div>
+      <div class="fg"><label>Project Details</label><textarea placeholder="Tell us about your project, goals, budget and timeline…"></textarea></div>
+      <button class="fsub" onclick="handleSubmit(this)">Send Message →</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ftop">
+    <div class="fb">
+      <a href="#" class="logo">Pub<em>licize</em></a>
+      <p>Global AI-first technology agency delivering intelligence, software and digital marketing since 2018. Four offices. One mission.</p>
+    </div>
+    <div class="fc"><h4>Services</h4><ul>
+      <li><a href="#services">Artificial Intelligence</a></li>
+      <li><a href="#services">AI Automation</a></li>
+      <li><a href="#services">Software Development</a></li>
+      <li><a href="#services">Shopify Development</a></li>
+      <li><a href="#services">Digital Marketing</a></li>
+      <li><a href="ai-video.html">AI Video Ads</a></li>
+    </ul></div>
+    <div class="fc"><h4>Company</h4><ul>
+      <li><a href="#about">About Us</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#offices">Our Offices</a></li>
+      <li><a href="#tech">Tech Stack</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul></div>
+    <div class="fc"><h4>Global Offices</h4><ul>
+      <li><a href="#offices">🇺🇸 New York, USA</a></li>
+      <li><a href="#offices">🇫🇷 Paris, France</a></li>
+      <li><a href="#offices">🇦🇪 Dubai, UAE</a></li>
+      <li><a href="#offices">🇵🇰 Islamabad, Pakistan</a></li>
+      <li><a href="mailto:publicize16@gmail.com">publicize16@gmail.com</a></li>
+    </ul></div>
+  </div>
+  <div class="fbot">
+    <p>© 2025 Publicize. All rights reserved. Est. 2018 · New York · Paris · Dubai · Islamabad</p>
+    <div class="fbl"><a href="#">Privacy</a><a href="#">Terms</a><a href="ai-video.html">AI Video Ads</a></div>
+  </div>
+</footer>
+
+<script>
+const togBtn=document.getElementById('togBtn');
+const togK=document.getElementById('togK');
+const html=document.documentElement;
+togBtn.addEventListener('click',()=>{
+  const d=html.getAttribute('data-theme')==='dark';
+  html.setAttribute('data-theme',d?'light':'dark');
+  togK.textContent=d?'☀':'☾';
+});
+const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('vis');});},{threshold:.1});
+document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',function(e){const t=document.querySelector(this.getAttribute('href'));if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'});}});
+});
+function handleSubmit(b){const o=b.textContent;b.textContent='Message Sent ✓';b.style.background='transparent';b.style.color='var(--a)';setTimeout(()=>{b.textContent=o;b.style.background='';b.style.color='';},3500);}
+</script>
+</body>
+</html>

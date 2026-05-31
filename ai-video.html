@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Video Ads — Publicize</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,700;0,900;1,700&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+[data-theme="dark"]{
+  --bg:#08060f;--bg2:#0e0b1a;--bg3:#140f24;--bg4:#1a142e;
+  --t:#f0ecff;--t2:#8880b0;--t3:#3d3860;
+  --p:#b44fff;--p2:#d488ff;--pr:180,79,255;
+  --pk:#ff4f9a;--pkr:255,79,154;
+  --o:#ff8c38;--or:255,140,56;
+  --y:#ffd166;--yr:255,209,102;
+  --nav:rgba(8,6,15,0.95);
+  --border:rgba(255,255,255,0.06);
+  --border2:rgba(180,79,255,0.3);
+  --card:#140f24;--surface:rgba(255,255,255,0.025);
+  --tog:#1e1830;
+}
+[data-theme="light"]{
+  --bg:#faf7ff;--bg2:#f2eeff;--bg3:#ffffff;--bg4:#f8f4ff;
+  --t:#110d20;--t2:#4a4470;--t3:#9490b8;
+  --p:#7920c8;--p2:#9940e0;--pr:121,32,200;
+  --pk:#c4246e;--pkr:196,36,110;
+  --o:#c45c10;--or:196,92,16;
+  --y:#9a7800;--yr:154,120,0;
+  --nav:rgba(250,247,255,0.96);
+  --border:rgba(0,0,0,0.07);
+  --border2:rgba(121,32,200,0.25);
+  --card:#ffffff;--surface:rgba(0,0,0,0.02);
+  --tog:#e8e0fc;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--t);overflow-x:hidden;transition:background .4s,color .4s;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:300;display:flex;align-items:center;justify-content:space-between;padding:1rem 5vw;background:var(--nav);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
+.logo{font-family:'Fraunces',serif;font-weight:900;font-size:1.5rem;color:var(--t);text-decoration:none;letter-spacing:-.5px;}
+.logo em{color:var(--p);font-style:italic;}
+.nav-right{display:flex;align-items:center;gap:.85rem;}
+.tog{width:46px;height:24px;border-radius:100px;background:var(--tog);border:1px solid var(--border);cursor:pointer;position:relative;}
+.tog-k{position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:var(--p);transition:transform .3s;display:flex;align-items:center;justify-content:center;font-size:9px;color:#fff;}
+[data-theme="light"] .tog-k{transform:translateX(22px);}
+.nav-back{color:var(--t2);font-size:.78rem;font-weight:600;text-decoration:none;display:flex;align-items:center;gap:.4rem;transition:color .2s;}
+.nav-back:hover{color:var(--t);}
+.nav-cta{background:linear-gradient(135deg,var(--p),var(--pk));color:#fff;padding:.5rem 1.25rem;border-radius:6px;font-size:.78rem;font-weight:600;text-decoration:none;transition:opacity .25s;}
+.nav-cta:hover{opacity:.85;}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:9rem 5vw 5rem;position:relative;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;z-index:0;}
+.orb{position:absolute;border-radius:50%;filter:blur(80px);animation:drift 10s ease-in-out infinite;}
+.o1{width:700px;height:700px;top:-200px;left:50%;transform:translateX(-50%);background:rgba(var(--pr),.15);animation-delay:0s;}
+.o2{width:400px;height:400px;bottom:0;left:10%;background:rgba(var(--pkr),.1);animation-delay:-3s;}
+.o3{width:350px;height:350px;bottom:0;right:10%;background:rgba(var(--or),.08);animation-delay:-6s;}
+@keyframes drift{0%,100%{transform:translateX(-50%) translate(0,0)}50%{transform:translateX(-50%) translate(20px,-30px)}}
+.o2,.o3{transform:none;}
+@keyframes drift23{0%,100%{transform:translate(0,0)}50%{transform:translate(-15px,20px)}}
+.o2{animation-name:drift23;}.o3{animation-name:drift23;animation-delay:-6s;}
+.hero-inner{position:relative;z-index:1;max-width:900px;}
+.hero-pill{display:inline-flex;align-items:center;gap:.5rem;background:rgba(var(--pr),.1);border:1px solid rgba(var(--pr),.3);color:var(--p2);font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.35rem .9rem;border-radius:100px;margin-bottom:1.75rem;}
+.pill-dot{width:5px;height:5px;border-radius:50%;background:var(--pk);animation:blink 2s ease-in-out infinite;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+h1{font-family:'Fraunces',serif;font-size:clamp(3rem,8vw,6.5rem);font-weight:900;line-height:.93;letter-spacing:-3px;margin-bottom:1.75rem;}
+.h1g{background:linear-gradient(135deg,var(--p),var(--pk),var(--o));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero-desc{font-size:1rem;font-weight:300;color:var(--t2);line-height:1.85;max-width:580px;margin:0 auto 2.5rem;}
+.hero-btns{display:flex;gap:.85rem;justify-content:center;flex-wrap:wrap;}
+.btn-grad{display:inline-flex;align-items:center;gap:.6rem;background:linear-gradient(135deg,var(--p),var(--pk));color:#fff;padding:.95rem 2.2rem;border-radius:8px;font-weight:600;font-size:.85rem;text-decoration:none;transition:all .3s;border:none;}
+.btn-grad:hover{opacity:.85;transform:translateY(-2px);box-shadow:0 16px 40px rgba(var(--pr),.25);}
+.btn-ghost{display:inline-flex;align-items:center;gap:.6rem;background:transparent;color:var(--t2);padding:.95rem 2.2rem;border-radius:8px;font-weight:500;font-size:.85rem;text-decoration:none;border:1.5px solid var(--border);transition:all .3s;}
+.btn-ghost:hover{color:var(--t);border-color:var(--t2);}
+
+/* STATS */
+.vstats{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.vsbox{padding:2.5rem 2rem;border-right:1px solid var(--border);text-align:center;}
+.vsbox:last-child{border-right:none;}
+.vsnum{font-family:'Fraunces',serif;font-size:3rem;font-weight:900;background:linear-gradient(135deg,var(--p),var(--pk));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-2px;line-height:1;}
+.vslabel{font-size:.68rem;font-weight:600;color:var(--t3);letter-spacing:.1em;text-transform:uppercase;margin-top:.35rem;}
+
+/* SECTION */
+.sec{padding:7rem 5vw;}
+.stag{display:inline-flex;align-items:center;gap:.55rem;font-size:.67rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--p);margin-bottom:1rem;}
+.stag::before{content:'';width:20px;height:2px;background:linear-gradient(90deg,var(--p),var(--pk));border-radius:2px;}
+h2{font-family:'Fraunces',serif;font-size:clamp(2rem,4.5vw,3.5rem);font-weight:900;letter-spacing:-2px;line-height:1.05;margin-bottom:1.1rem;color:var(--t);}
+.ssub{font-size:.92rem;font-weight:300;color:var(--t2);line-height:1.85;max-width:500px;}
+
+/* WHAT WE DO */
+.what-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;margin-top:3.5rem;}
+.what-visual{position:relative;}
+.vid-mockup{background:var(--bg3);border:1px solid var(--border);border-radius:16px;padding:1.5rem;aspect-ratio:16/9;display:flex;flex-direction:column;gap:1rem;overflow:hidden;position:relative;}
+.vid-mockup::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(var(--pr),.06) 0%,rgba(var(--pkr),.04) 100%);}
+.vm-bar{height:6px;border-radius:100px;background:var(--surface);}
+.vm-bar-fill{height:100%;border-radius:100px;animation:bar 3s ease-in-out infinite alternate;}
+.vb1{background:linear-gradient(90deg,var(--p),var(--pk));width:78%;animation-delay:0s;}
+.vb2{background:linear-gradient(90deg,var(--pk),var(--o));width:55%;animation-delay:.5s;}
+.vb3{background:linear-gradient(90deg,var(--o),var(--y));width:90%;animation-delay:1s;}
+@keyframes bar{from{opacity:.6}to{opacity:1}}
+.vm-play{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--p),var(--pk));display:flex;align-items:center;justify-content:center;font-size:1.25rem;margin:auto;cursor:pointer;animation:pulse 2.5s ease-in-out infinite;box-shadow:0 0 0 0 rgba(var(--pr),.4);}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(var(--pr),.4)}70%{box-shadow:0 0 0 16px rgba(var(--pr),0)}100%{box-shadow:0 0 0 0 rgba(var(--pr),0)}}
+.vm-tags{display:flex;gap:.5rem;flex-wrap:wrap;position:relative;z-index:1;}
+.vmtag{font-size:.65rem;font-weight:600;padding:.25rem .7rem;border-radius:100px;background:rgba(var(--pr),.1);border:1px solid rgba(var(--pr),.2);color:var(--p2);}
+.what-text{display:flex;flex-direction:column;gap:1.25rem;}
+.witem{display:flex;gap:1rem;padding:1.5rem;background:var(--card);border:1px solid var(--border);border-radius:10px;transition:all .3s;}
+.witem:hover{border-color:var(--border2);transform:translateX(6px);}
+.wi-icon{font-size:1.25rem;flex-shrink:0;margin-top:.1rem;}
+.wi-title{font-size:.9rem;font-weight:600;color:var(--t);margin-bottom:.25rem;}
+.wi-desc{font-size:.78rem;color:var(--t2);line-height:1.65;}
+
+/* HOW IT WORKS */
+.hiw-section{background:var(--bg2);}
+.hiw-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem;margin-top:3.5rem;}
+.hiw-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:2.25rem 1.75rem;text-align:center;transition:all .3s;position:relative;overflow:hidden;}
+.hiw-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--p),var(--pk));transform:scaleX(0);transform-origin:left;transition:transform .4s;}
+.hiw-card:hover{border-color:var(--border2);transform:translateY(-5px);}
+.hiw-card:hover::before{transform:scaleX(1);}
+.hiw-n{font-family:'Fraunces',serif;font-size:3rem;font-weight:900;background:linear-gradient(135deg,var(--p),var(--pk));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-2px;line-height:1;margin-bottom:.75rem;}
+.hiw-icon{font-size:1.75rem;margin-bottom:.75rem;}
+.hiw-title{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:700;color:var(--t);letter-spacing:-.3px;margin-bottom:.5rem;}
+.hiw-desc{font-size:.78rem;color:var(--t2);line-height:1.7;}
+
+/* USE CASES */
+.uc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:3.5rem;}
+.uccard{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:2.25rem 2rem;transition:all .3s;position:relative;overflow:hidden;}
+.uccard:hover{border-color:var(--border2);transform:translateY(-4px);box-shadow:0 20px 50px rgba(var(--pr),.08);}
+.uc-icon{font-size:2rem;margin-bottom:1rem;}
+.uc-title{font-family:'Fraunces',serif;font-size:1.15rem;font-weight:700;color:var(--t);letter-spacing:-.3px;margin-bottom:.5rem;}
+.uc-desc{font-size:.8rem;color:var(--t2);line-height:1.7;}
+.uc-ex{display:inline-flex;align-items:center;gap:.4rem;margin-top:.85rem;font-size:.7rem;font-weight:600;color:var(--p);text-decoration:none;}
+
+/* PRICING */
+.pricing-section{background:var(--bg2);}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:3.5rem;}
+.pcard{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:2.5rem 2rem;transition:all .3s;position:relative;}
+.pcard.popular{border-color:var(--border2);background:linear-gradient(135deg,rgba(var(--pr),.06) 0%,var(--card) 60%);}
+.pop-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--p),var(--pk));color:#fff;font-size:.63rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.3rem .9rem;border-radius:100px;white-space:nowrap;}
+.pc-plan{font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--p);margin-bottom:.6rem;}
+.pc-price{font-family:'Fraunces',serif;font-size:3rem;font-weight:900;color:var(--t);letter-spacing:-2px;line-height:1;}
+.pc-price span{font-size:1rem;color:var(--t2);font-family:'Plus Jakarta Sans',sans-serif;font-weight:400;letter-spacing:0;}
+.pc-desc{font-size:.78rem;color:var(--t2);line-height:1.6;margin:.6rem 0 1.5rem;}
+.pc-features{list-style:none;display:flex;flex-direction:column;gap:.65rem;margin-bottom:2rem;}
+.pc-features li{font-size:.78rem;color:var(--t2);display:flex;align-items:center;gap:.6rem;}
+.pc-features li::before{content:'✓';color:var(--p);font-weight:700;flex-shrink:0;}
+.pc-btn{display:block;text-align:center;padding:.85rem;border-radius:8px;font-weight:600;font-size:.82rem;text-decoration:none;transition:all .3s;}
+.pc-btn-outline{background:transparent;color:var(--p);border:1.5px solid var(--border2);}
+.pc-btn-outline:hover{background:rgba(var(--pr),.08);}
+.pc-btn-filled{background:linear-gradient(135deg,var(--p),var(--pk));color:#fff;border:none;}
+.pc-btn-filled:hover{opacity:.88;transform:translateY(-2px);}
+
+/* CTA */
+.cta-sec{position:relative;overflow:hidden;padding:9rem 5vw;text-align:center;}
+[data-theme="dark"] .cta-sec{background:linear-gradient(135deg,#08060f 0%,#0e0b1a 50%,#08060f 100%);}
+[data-theme="light"] .cta-sec{background:linear-gradient(135deg,#faf7ff 0%,#f2eeff 50%,#faf7ff 100%);}
+.cta-orb{position:absolute;width:700px;height:700px;border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%);background:radial-gradient(ellipse,rgba(var(--pr),.12) 0%,transparent 70%);filter:blur(40px);pointer-events:none;}
+.cta-sec h2{position:relative;z-index:1;max-width:750px;margin:0 auto 1.1rem;}
+.cta-sec p{position:relative;z-index:1;font-size:.92rem;font-weight:300;color:var(--t2);line-height:1.85;max-width:460px;margin:0 auto 2.5rem;}
+.cta-btns{display:flex;gap:.85rem;justify-content:center;flex-wrap:wrap;position:relative;z-index:1;}
+
+/* CONTACT */
+.cont-section{background:var(--bg2);}
+.cont-layout{display:grid;grid-template-columns:1fr 1.4fr;gap:5rem;margin-top:3.5rem;align-items:start;}
+.ci h3{font-family:'Fraunces',serif;font-size:1.6rem;font-weight:700;letter-spacing:-1px;margin-bottom:.75rem;}
+.ci p{font-size:.82rem;color:var(--t2);line-height:1.85;margin-bottom:2rem;}
+.cdet{display:flex;align-items:center;gap:.85rem;padding:.85rem 1.1rem;background:var(--card);border:1px solid var(--border);border-radius:8px;margin-bottom:.6rem;transition:all .3s;}
+.cdet:hover{border-color:var(--border2);}
+.cdet-ico{width:34px;height:34px;border:1px solid var(--border);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:.85rem;flex-shrink:0;}
+.cdl{font-size:.63rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--t3);margin-bottom:.1rem;}
+.cdv{font-size:.82rem;font-weight:500;color:var(--t);}
+.cform{background:var(--card);border:1px solid var(--border);padding:2.5rem;border-radius:12px;}
+.cf-title{font-family:'Fraunces',serif;font-size:1.4rem;font-weight:700;letter-spacing:-.5px;margin-bottom:1.5rem;}
+.fg{margin-bottom:.85rem;}
+.fg label{display:block;font-size:.64rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--t3);margin-bottom:.4rem;}
+.fg input,.fg textarea,.fg select{width:100%;padding:.78rem .95rem;border:1px solid var(--border);border-radius:7px;font-family:'Plus Jakarta Sans',sans-serif;font-size:.83rem;color:var(--t);background:var(--bg);transition:border-color .2s;outline:none;appearance:none;}
+.fg input:focus,.fg textarea:focus,.fg select:focus{border-color:var(--p);box-shadow:0 0 0 3px rgba(var(--pr),.08);}
+.fg textarea{resize:vertical;min-height:100px;}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:.85rem;margin-bottom:0;}
+.fsub{width:100%;padding:.95rem;background:linear-gradient(135deg,var(--p),var(--pk));color:#fff;border:none;border-radius:8px;font-family:'Plus Jakarta Sans',sans-serif;font-size:.82rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;transition:opacity .3s;}
+.fsub:hover{opacity:.88;}
+
+/* FOOTER */
+footer{background:var(--bg);border-top:1px solid var(--border);padding:2.5rem 5vw;}
+.fbot{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+.fbot p{font-size:.75rem;color:var(--t3);}
+.fbl{display:flex;gap:1.25rem;}
+.fbl a{font-size:.75rem;color:var(--t3);text-decoration:none;transition:color .2s;}
+.fbl a:hover{color:var(--p);}
+
+/* REVEAL */
+.rv{opacity:0;transform:translateY(20px);transition:opacity .65s ease,transform .65s ease;}
+.rv.vis{opacity:1;transform:translateY(0);}
+.rv.d1{transition-delay:.1s;}.rv.d2{transition-delay:.2s;}.rv.d3{transition-delay:.3s;}
+
+@media(max-width:1024px){
+  .what-grid,.cont-layout{grid-template-columns:1fr;}
+  .hiw-grid,.uc-grid,.pricing-grid{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:768px){
+  .vstats{grid-template-columns:1fr 1fr;}
+  .vsbox:nth-child(2){border-right:none;}
+  .vsbox:nth-child(3){border-top:1px solid var(--border);}
+  .vsbox:nth-child(4){border-top:1px solid var(--border);}
+  .hiw-grid,.uc-grid,.pricing-grid{grid-template-columns:1fr;}
+  .frow{grid-template-columns:1fr;}
+  h1{letter-spacing:-2px;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">Pub<em>licize</em></a>
+  <div class="nav-right">
+    <button class="tog" id="togBtn"><div class="tog-k" id="togK">☀</div></button>
+    <a href="index.html" class="nav-back">← Back to Main Site</a>
+    <a href="#contact" class="nav-cta">Get Started</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"><div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div></div>
+  <div class="hero-inner">
+    <div class="hero-pill"><div class="pill-dot"></div>New · Publicize AI Lab · Powered by Generative AI</div>
+    <h1>
+      <div style="color:var(--t)">Create Stunning</div>
+      <div class="h1g">Video Ads</div>
+      <div style="color:var(--t);font-family:'Fraunces',serif;font-style:italic;">with AI.</div>
+    </h1>
+    <p class="hero-desc">Generate high-converting video advertisements in minutes using artificial intelligence — no film crew, no studio, no waiting weeks. Just results.</p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn-grad">🎬 Start Creating →</a>
+      <a href="#how-it-works" class="btn-ghost">See How It Works</a>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="vstats rv">
+  <div class="vsbox"><div class="vsnum">10×</div><div class="vslabel">Faster Than Traditional</div></div>
+  <div class="vsbox"><div class="vsnum">90%</div><div class="vslabel">Cost Reduction</div></div>
+  <div class="vsbox"><div class="vsnum">∞</div><div class="vslabel">Video Variations</div></div>
+  <div class="vsbox"><div class="vsnum">24hr</div><div class="vslabel">Delivery Time</div></div>
+</div>
+
+<!-- WHAT WE DO -->
+<section class="sec" id="what-we-do">
+  <div class="what-grid">
+    <div class="rv">
+      <div class="stag">AI Video Generation</div>
+      <h2>Video Ads That Convert</h2>
+      <p class="ssub" style="margin-bottom:2rem;">Our AI video generation platform creates professional advertising content at a fraction of the time and cost of traditional production.</p>
+      <div class="what-text">
+        <div class="witem"><div class="wi-icon">⚡</div><div><div class="wi-title">Lightning Fast Production</div><div class="wi-desc">From brief to finished video ad in 24 hours — not weeks. AI generates scripts, visuals, voiceover and edits automatically.</div></div></div>
+        <div class="witem"><div class="wi-icon">🎯</div><div><div class="wi-title">Conversion-Optimized</div><div class="wi-desc">AI trained on millions of high-performing ads — every video follows proven frameworks that drive clicks, leads and sales.</div></div></div>
+        <div class="witem"><div class="wi-icon">🔄</div><div><div class="wi-title">Infinite Variations</div><div class="wi-desc">Generate dozens of A/B test variants instantly. Find your winning creative without the traditional cost of multiple productions.</div></div></div>
+        <div class="witem"><div class="wi-icon">🌍</div><div><div class="wi-title">Multilingual Support</div><div class="wi-desc">Create ads in any language with native-quality voiceovers — reach global audiences with localized video content at scale.</div></div></div>
+      </div>
+    </div>
+    <div class="rv d2">
+      <div class="vid-mockup">
+        <div class="vm-play">▶</div>
+        <div class="vm-bar"><div class="vm-bar-fill vb1"></div></div>
+        <div class="vm-bar"><div class="vm-bar-fill vb2"></div></div>
+        <div class="vm-bar"><div class="vm-bar-fill vb3"></div></div>
+        <div class="vm-tags">
+          <span class="vmtag">AI Generated</span>
+          <span class="vmtag">4K Quality</span>
+          <span class="vmtag">30 seconds</span>
+          <span class="vmtag">High CTR</span>
+        </div>
+      </div>
+      <div style="margin-top:1.25rem;padding:1.5rem;background:var(--card);border:1px solid var(--border);border-radius:10px;">
+        <div style="font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--p);margin-bottom:.5rem;">Example Output</div>
+        <div style="font-size:.82rem;color:var(--t2);line-height:1.7;">A 30-second product ad for an e-commerce brand — AI writes the script, generates visuals, adds professional voiceover, syncs music and delivers a finished, broadcast-ready video ready to run on Meta, TikTok or YouTube Ads.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="sec hiw-section" id="how-it-works">
+  <div style="text-align:center;" class="rv">
+    <div class="stag" style="justify-content:center;">Process</div>
+    <h2>How It Works</h2>
+    <p class="ssub" style="margin:0 auto;">Four simple steps from brief to broadcast-ready video ad.</p>
+  </div>
+  <div class="hiw-grid rv d1">
+    <div class="hiw-card"><div class="hiw-n">01</div><div class="hiw-icon">📋</div><div class="hiw-title">Share Your Brief</div><div class="hiw-desc">Tell us your product, target audience, key message and platform (Meta, TikTok, YouTube, etc.). A 5-minute form is all we need.</div></div>
+    <div class="hiw-card"><div class="hiw-n">02</div><div class="hiw-icon">🤖</div><div class="hiw-title">AI Generates</div><div class="hiw-desc">Our AI writes the script, generates visuals, adds AI voiceover, background music and creates a polished video ad in hours.</div></div>
+    <div class="hiw-card"><div class="hiw-n">03</div><div class="hiw-icon">✏️</div><div class="hiw-title">Review & Refine</div><div class="hiw-desc">You review the video and request any changes. We can generate unlimited variations until you're 100% satisfied.</div></div>
+    <div class="hiw-card"><div class="hiw-n">04</div><div class="hiw-icon">🚀</div><div class="hiw-title">Launch & Scale</div><div class="hiw-desc">Download your broadcast-ready video in any format. Run it on your chosen platforms and scale what performs best.</div></div>
+  </div>
+</section>
+
+<!-- USE CASES -->
+<section class="sec" id="use-cases">
+  <div class="rv"><div class="stag">Use Cases</div><h2>Perfect For Every Business</h2><p class="ssub">From e-commerce brands to service businesses — AI video ads work across every industry and platform.</p></div>
+  <div class="uc-grid rv d1">
+    <div class="uccard"><div class="uc-icon">🛍</div><div class="uc-title">E-commerce & Shopify</div><div class="uc-desc">Product showcase videos, unboxing ads, before/after demos and seasonal campaign videos for your online store — generated at scale.</div></div>
+    <div class="uccard"><div class="uc-icon">📱</div><div class="uc-title">Social Media Ads</div><div class="uc-desc">TikTok-style vertical videos, Instagram Reels ads, Facebook video campaigns — all optimized for each platform's unique format and audience.</div></div>
+    <div class="uccard"><div class="uc-icon">🏢</div><div class="uc-title">Brand Awareness</div><div class="uc-desc">Professional brand story videos, company overview ads and value proposition content that builds recognition and trust at scale.</div></div>
+    <div class="uccard"><div class="uc-icon">🎓</div><div class="uc-title">Education & Training</div><div class="uc-desc">Course promotional videos, explainer content and training material ads that demonstrate value and drive enrollment.</div></div>
+    <div class="uccard"><div class="uc-icon">🏠</div><div class="uc-title">Real Estate & Services</div><div class="uc-desc">Property showcase videos, service demo ads and testimonial-style content for local service businesses.</div></div>
+    <div class="uccard"><div class="uc-icon">🚀</div><div class="uc-title">Startups & Apps</div><div class="uc-desc">App demo videos, product launch ads and investor-grade promotional content — built fast to match startup speed.</div></div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="sec pricing-section" id="pricing">
+  <div style="text-align:center;" class="rv">
+    <div class="stag" style="justify-content:center;">Pricing</div>
+    <h2>Simple, Transparent Pricing</h2>
+    <p class="ssub" style="margin:0 auto;">No hidden fees. No surprises. Just world-class AI video ads at a fraction of traditional production costs.</p>
+  </div>
+  <div class="pricing-grid rv d1">
+    <div class="pcard">
+      <div class="pc-plan">Starter</div>
+      <div class="pc-price">$299<span>/video</span></div>
+      <div class="pc-desc">Perfect for businesses testing AI video ads for the first time.</div>
+      <ul class="pc-features">
+        <li>1 × 30-second video ad</li>
+        <li>AI script & voiceover</li>
+        <li>2 revision rounds</li>
+        <li>HD quality output</li>
+        <li>48-hour delivery</li>
+        <li>1 platform format</li>
+      </ul>
+      <a href="#contact" class="pc-btn pc-btn-outline">Get Started</a>
+    </div>
+    <div class="pcard popular">
+      <div class="pop-badge">Most Popular</div>
+      <div class="pc-plan">Growth</div>
+      <div class="pc-price">$799<span>/month</span></div>
+      <div class="pc-desc">For brands that need consistent high-quality video ad output.</div>
+      <ul class="pc-features">
+        <li>5 × video ads/month</li>
+        <li>Up to 60 seconds each</li>
+        <li>Unlimited revisions</li>
+        <li>4K quality output</li>
+        <li>24-hour delivery</li>
+        <li>All platform formats</li>
+        <li>A/B test variants</li>
+        <li>Priority support</li>
+      </ul>
+      <a href="#contact" class="pc-btn pc-btn-filled">Start Growing →</a>
+    </div>
+    <div class="pcard">
+      <div class="pc-plan">Enterprise</div>
+      <div class="pc-price">Custom</div>
+      <div class="pc-desc">For agencies and large brands with high-volume video ad needs.</div>
+      <ul class="pc-features">
+        <li>Unlimited video ads</li>
+        <li>Custom AI training</li>
+        <li>Brand voice & style</li>
+        <li>Dedicated account team</li>
+        <li>Same-day delivery</li>
+        <li>White-label option</li>
+        <li>API access</li>
+        <li>SLA guarantee</li>
+      </ul>
+      <a href="#contact" class="pc-btn pc-btn-outline">Contact Sales</a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-sec">
+  <div class="cta-orb"></div>
+  <div class="stag rv" style="justify-content:center;">Ready to Transform Your Ads?</div>
+  <h2 class="rv">Stop Paying for Expensive<br><span class="h1g">Video Productions.</span></h2>
+  <p class="rv">Join businesses using Publicize AI Video Ads to create stunning, converting video content at a fraction of the traditional cost — delivered in 24 hours.</p>
+  <div class="cta-btns rv">
+    <a href="#contact" class="btn-grad">🎬 Start Creating Today →</a>
+    <a href="index.html" class="btn-ghost">← Back to Publicize</a>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="sec cont-section" id="contact">
+  <div class="rv"><div class="stag">Get Started</div><h2>Create Your First AI Video Ad</h2></div>
+  <div class="cont-layout">
+    <div class="ci rv">
+      <h3>Let's create something amazing</h3>
+      <p>Tell us about your brand and what you need. Our team will review your brief and get back to you within a few hours with a plan.</p>
+      <div class="cdet"><div class="cdet-ico">✉</div><div><div class="cdl">Email</div><div class="cdv">publicize16@gmail.com</div></div></div>
+      <div class="cdet"><div class="cdet-ico">⚡</div><div><div class="cdl">Response Time</div><div class="cdv">Within 4 hours</div></div></div>
+      <div class="cdet"><div class="cdet-ico">🕐</div><div><div class="cdl">Delivery</div><div class="cdv">24–48 hours</div></div></div>
+      <div class="cdet"><div class="cdet-ico">🌍</div><div><div class="cdl">Offices</div><div class="cdv">New York · Paris · Dubai · Islamabad</div></div></div>
+    </div>
+    <div class="cform rv d2">
+      <div class="cf-title">Start Your AI Video Ad</div>
+      <div class="frow" style="margin-bottom:.85rem;">
+        <div class="fg"><label>Full Name</label><input type="text" placeholder="Your name"></div>
+        <div class="fg"><label>Email</label><input type="email" placeholder="you@brand.com"></div>
+      </div>
+      <div class="fg"><label>Brand / Company</label><input type="text" placeholder="Your brand name"></div>
+      <div class="fg"><label>Platform</label>
+        <select>
+          <option value="">Select target platform…</option>
+          <option>Meta (Facebook / Instagram)</option>
+          <option>TikTok</option>
+          <option>YouTube</option>
+          <option>Google Ads</option>
+          <option>Multiple Platforms</option>
+        </select>
+      </div>
+      <div class="fg"><label>Package</label>
+        <select>
+          <option value="">Select a package…</option>
+          <option>Starter — $299/video</option>
+          <option>Growth — $799/month</option>
+          <option>Enterprise — Custom</option>
+        </select>
+      </div>
+      <div class="fg"><label>Tell Us About Your Product & Ad Goal</label><textarea placeholder="What product/service are you promoting? What action do you want viewers to take? Any specific style or tone?"></textarea></div>
+      <button class="fsub" onclick="handleSubmit(this)">🎬 Start Creating →</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="fbot">
+    <p>© 2025 Publicize AI Video Ads · A product by <a href="index.html" style="color:var(--p);text-decoration:none;">Publicize</a> · Est. 2018 · publicize16@gmail.com</p>
+    <div class="fbl"><a href="index.html">← Main Site</a><a href="#home">Back to Top</a><a href="#pricing">Pricing</a></div>
+  </div>
+</footer>
+
+<script>
+const togBtn=document.getElementById('togBtn');
+const togK=document.getElementById('togK');
+const html=document.documentElement;
+togBtn.addEventListener('click',()=>{const d=html.getAttribute('data-theme')==='dark';html.setAttribute('data-theme',d?'light':'dark');togK.textContent=d?'☀':'☾';});
+const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('vis');});},{threshold:.1});
+document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',function(e){const t=document.querySelector(this.getAttribute('href'));if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'});}});});
+function handleSubmit(b){const o=b.textContent;b.textContent='Request Sent ✓';b.style.opacity='.7';setTimeout(()=>{b.textContent=o;b.style.opacity='';},3500);}
+</script>
+</body>
+</html>
